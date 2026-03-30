@@ -1,8 +1,11 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LoaderProvider, GlobalLoader } from "@/components/GlobalLoader";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -20,28 +23,33 @@ import VoxaDemo from "./pages/VoxaDemo";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/SynapseAIDemo" element={<SynapseAIDemo />} />
-          <Route path="/HavamaanAIDemo" element={<HavamaanAIDemo />} />
-          <Route path="/SamvaadAIDemo" element={<SamvaadAIDemo />} />
-          <Route path="/DataInsightDashboardDemo" element={<DataInsightDashboardDemo />} />
-          <Route path="/IntelliCoderDemo" element={<IntelliCoderDemo />} />
-          <Route path="/VoxaDemo" element={<VoxaDemo />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <LoaderProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <GlobalLoader />
+        <BrowserRouter>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/SynapseAIDemo" element={<SynapseAIDemo />} />
+              <Route path="/HavamaanAIDemo" element={<HavamaanAIDemo />} />
+              <Route path="/SamvaadAIDemo" element={<SamvaadAIDemo />} />
+              <Route path="/DataInsightDashboardDemo" element={<DataInsightDashboardDemo />} />
+              <Route path="/IntelliCoderDemo" element={<IntelliCoderDemo />} />
+              <Route path="/VoxaDemo" element={<VoxaDemo />} />
+            </Routes>
+          </ErrorBoundary>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </LoaderProvider>
 );
 
 export default App;
